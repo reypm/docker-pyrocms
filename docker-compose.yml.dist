@@ -1,0 +1,24 @@
+version: '2'
+services:
+    httpd:
+        build: docker/httpd
+        ports:
+            - "80:80"
+        volumes_from:
+            - php-fpm
+    php-fpm:
+        build: docker/php-fpm
+        depends_on:
+            - db
+    db:
+        image: mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        volumes:
+            - sql-data:/var/lib/mysql
+volumes:
+    sql-data:
+        external: true
