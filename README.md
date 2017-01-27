@@ -6,6 +6,8 @@
  - [Install Docker Compose](https://docs.docker.com/compose/install/)
  - Gets familiar with Docker and Docker Compose (command line, options, docs). There is a great documentation in [this repository](https://github.com/veggiemonk/awesome-docker)
 
+> Note: in order to use this stack you *must* install Docker Compose 1.10+
+
 ## Steps to get all up and running
 ### Set up MySQL service values
 - Create a copy of `.env.dist`:
@@ -44,6 +46,26 @@ TIMEZONE=UTC
 
 > Note: if you've changed values for MySQL service at .env file then you need to
 > change DB_DATABASE, DB_USERNAME and DB_PASSWORD at PyroCSM .env file
+
+### Persisting data
+By default this stack is not persisting data so on each start|build you will have a clean instance of PyroCMS without any previous changes. If you want to persist data then setup the `docker-compose.yml` file as follow:
+
+```
+db:
+    image: mysql
+    healthcheck:
+        test: "exit 0"
+    environment:
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        MYSQL_DATABASE: ${MYSQL_DATABASE}
+        MYSQL_USER: ${MYSQL_USER}
+        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+        - sql-data:/var/lib/mysql
+volumes:
+sql-data:
+    external: true
+```
 
 ### Bringing all services up
 - Run the following commands:
