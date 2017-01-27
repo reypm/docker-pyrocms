@@ -1,4 +1,4 @@
-version: '2'
+version: '2.1'
 services:
     httpd:
         build: docker/httpd
@@ -9,9 +9,12 @@ services:
     php-fpm:
         build: docker/php-fpm
         depends_on:
-            - db
+            db:
+                condition: service_healthy
     db:
         image: mysql
+        healthcheck:
+            test: "exit 0"
         environment:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
             MYSQL_DATABASE: ${MYSQL_DATABASE}
