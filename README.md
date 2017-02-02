@@ -10,7 +10,7 @@
 
 ## Steps to get all up and running
 ### Set up MySQL service values
-- Create a copy of `.env.dist`:
+- Create a copy of `.env.dist` or rename `.env.dist` to `.env`:
 ```shell
 $ cp .env.dist .env
 ```
