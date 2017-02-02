@@ -3,11 +3,20 @@ services:
     httpd:
         build: docker/httpd
         ports:
-            - "80:80"
+            - "8080:80"
         volumes_from:
             - php-fpm
     php-fpm:
-        build: docker/php-fpm
+        build:
+            context: docker/php-fpm
+            args:
+                INSTALL_COMPOSER: "true"
+                INSTALL_XDEBUG: "false"
+                INSTALL_MONGO: "false"
+                INSTALL_REDIS: "false"
+                INSTALL_HTTP_REQUEST: "false"
+                INSTALL_UPLOAD_PROGRESS: "false"
+                INSTALL_XATTR: "false"
         depends_on:
             db:
                 condition: service_healthy
