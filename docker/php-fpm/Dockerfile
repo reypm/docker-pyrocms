@@ -51,5 +51,5 @@ RUN sh /usr/local/bin/install.sh && \
     chmod +x /config/bootstrap.sh
 
 WORKDIR /data/www
-VOLUME ["/data/www", "/etc/httpd"]
+VOLUME ["/data/www"]
 EXPOSE 9001
