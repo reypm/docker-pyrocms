@@ -10,7 +10,6 @@ services:
         build:
             context: docker/php-fpm
             args:
-                INSTALL_COMPOSER: "true"
                 INSTALL_XDEBUG: "false"
                 INSTALL_MONGO: "false"
                 INSTALL_REDIS: "false"

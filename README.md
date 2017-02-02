@@ -17,9 +17,9 @@ $ cp .env.dist .env
 - Open the file `.env` and update the values as desired
 
 ### Set up PyroCMS install values
-- Create a copy of `docker/php-fpm/.env.dist`:
+- Create a copy of `docker/php-fpm/container-files/tmp/.env.dist`:
 ```shell
-$ cp docker/php-fpm/.env.dist docker/php-fpm/.env
+$ cp docker/php-fpm/container-files/tmp/.env.dist docker/php-fpm/container-files/tmp/.env
 ```
 - Open the file `.env` and update the values as desired
 
@@ -46,6 +46,22 @@ TIMEZONE=UTC
 
 > Note: if you've changed values for MySQL service at .env file then you need to
 > change DB_DATABASE, DB_USERNAME and DB_PASSWORD at PyroCSM .env file
+
+### Setting up PHP extensions
+
+By default the `php-fpm` image ships with latest Composer installed but you can enable the following PHP extensions:
+ - Xdebug
+ - Mongo
+ - Redis
+ - Extended HTTP
+ - Upload Progress
+ - Extended Attributes
+
+For example to enable Xdebug, open the file `.env` and change the `ARG` to `true`:
+```shell
+INSTALL_XDEBUG: "true"
+```
+The next time you run the command `docker-compose up -d --build --force-recreate` the new image will ship with Xdebug installed and enabled
 
 ### Persisting data
 By default this stack is not persisting data so on each start|build you will have a clean instance of PyroCMS without any previous changes. If you want to persist data then setup the `docker-compose.yml` file as follow:
