@@ -9,7 +9,7 @@
 > Note: in order to use this stack you *must* install Docker Compose 1.10+
 
 ## What's included
- - httpd 2.4.29
+ - httpd 2.4.6
  - PHP 7.1.1 (php-fpm)
  - MariaDB (latest)
  - PyroCMS 3.2.2
