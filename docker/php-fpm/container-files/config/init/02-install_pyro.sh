@@ -16,6 +16,10 @@ if [ ! -d "$DATA_DIR" ]; then
     mkdir -p "$DATA_DIR"
 fi
 
+if  [ "$(ls -la "$DATA_DIR")" ]; then
+    rm -rf "$DATA_DIR/*"
+fi
+
 cd "$DATA_DIR"
 composer create-project pyrocms/pyrocms
 mv /tmp/.env "$PYRO_DIR"/.env
