@@ -20,7 +20,7 @@ services:
             db:
                 condition: service_healthy
     db:
-        image: mysql
+        image: mariadb
         healthcheck:
             test: "exit 0"
         environment:

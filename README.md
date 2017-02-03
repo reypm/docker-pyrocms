@@ -8,6 +8,12 @@
 
 > Note: in order to use this stack you *must* install Docker Compose 1.10+
 
+## What's included
+ - httpd 2.4.29
+ - PHP 7.1.1 (php-fpm)
+ - MariaDB (latest)
+ - PyroCMS 3.2.2
+
 ## Steps to get all up and running
 ### Set up MySQL service values
 - Create a copy of `.env.dist` or rename `.env.dist` to `.env`:
@@ -66,9 +72,9 @@ The next time you run the command `docker-compose up -d --build --force-recreate
 ### Persisting data
 By default this stack is not persisting data so on each start|build you will have a clean instance of PyroCMS without any previous changes. If you want to persist data then setup the `docker-compose.yml` file as follow:
 
-```
+```shell
 db:
-    image: mysql
+    image: mariadb
     healthcheck:
         test: "exit 0"
     environment:
@@ -83,10 +89,24 @@ sql-data:
     external: true
 ```
 
-### Bringing all services up
-- Run the following commands:
+### Bringing all services up & running
+- Run the following command:
 ```shell
 $ docker-compose up -d --build --force-recreate
+```
+
+The installation take a while, if you're impatient and want to know what's happening then take a look to the logs:
+
+```shell
+# Show the logs from all containers
+$ docker-compose logs -f 
+
+# Show the logs from php-fpm
+$ docker logs -f dockerpyrocms_php-fpm_1
+
+# Show the logs from php-fpm
+$ docker logs -f dockerpyrocms_httpd_1
+```
 
 ### Add the host name to your hosts files
 - The name `pyrocms.local` should be added to the hosts files pointing to `localhost` or `127.0.0.1` for the application to work properly.
