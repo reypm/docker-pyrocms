@@ -26,6 +26,9 @@ mv /tmp/.env "$PYRO_DIR"/.env
 cd "$PYRO_DIR"
 php artisan install --ready
 
+# Remove the .htaccess file shipped with Pyro since we've tunned our VH file
+rm -f "$PYRO_DIR/public/.htaccess"
+
 usermod -u 1000 apache && groupmod -g 1000 apache && \
 chown -R apache:root $DATA_DIR
 
