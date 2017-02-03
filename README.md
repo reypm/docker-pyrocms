@@ -104,7 +104,7 @@ $ docker-compose logs -f
 # Show the logs from php-fpm
 $ docker logs -f dockerpyrocms_php-fpm_1
 
-# Show the logs from php-fpm
+# Show the logs from httpd
 $ docker logs -f dockerpyrocms_httpd_1
 ```
 
